@@ -1,0 +1,13 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: Introduction to Map Making
+    chapters:
+    - file: DSC170_intro1
+  - caption: Geopandas
+    chapters:
+    - file: Geopandas-1
+    - file: Geopandas-2
