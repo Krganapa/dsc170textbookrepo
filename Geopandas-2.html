@@ -1,0 +1,2354 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DSC 170. Advanced Geopandas. Week 2, lecture 1 (and more) &#8212; Spatial Data Science and Applications</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Intro to Geopandas-I" href="Geopandas-1.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Spatial Data Science and Applications</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Spatial Data Science
+   <img height="50" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Rotating_globe.gif" width="50"/>
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Introduction to Map Making
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="DSC170_intro1.html">
+   Making maps with ArcGIS
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Geopandas
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Geopandas-1.html">
+   Intro to Geopandas-I
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   DSC 170. Advanced Geopandas. Week 2, lecture 1 (and more)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/Geopandas-2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FGeopandas-2.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/Geopandas-2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   DSC 170. Advanced Geopandas. Week 2, lecture 1 (and more)
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#let-s-explore-several-real-datasets">
+   1. Let’s explore several real datasets
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-info-about-projections-in-geopandas-http-geopandas-org-projections-html">
+   More info about projections in Geopandas: http://geopandas.org/projections.html
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-s-have-a-little-more-fun-with-projections-using-world-map">
+     Let’s have a little more fun with projections, using world map
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tissot-s-indicatrix">
+   Tissot’s Indicatrix
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#even-more-fun-with-projections">
+     Even more fun with projections?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-operations">
+   2. Spatial Operations
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#computing-distance-between-spatial-objects-and-exploring-spatial-relationships">
+     Computing distance between spatial objects, and exploring spatial relationships
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-general-format-of-binary-predicates">
+     The general format of binary predicates:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-summary-of-spatial-operations">
+     A summary of spatial operations:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#let-s-explore-some-of-them">
+     Let’s explore some of them
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#constructing-a-geopandas-geodataframe">
+   3. Constructing a Geopandas geodataframe
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#one-option-is-to-use-shapely-point-constructor-to-create-a-geoseries-and-then-a-geodataframe-from-it">
+     One option is to use shapely Point constructor to create a GeoSeries, and then a GeoDataFrame from it
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#another-option-is-to-create-a-pandas-dataframe-and-then-a-geodataframe-from-it">
+     Another option is to create a pandas dataframe, and then a GeoDataFrame from it
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#yet-another-option-for-simple-spatial-objects-is-to-use-geojson-io">
+     Yet another option (for simple spatial objects) is to use geojson.io:
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-join-the-core-capability-of-gis">
+   4. Spatial join - the core capability of GIS
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="dsc-170-advanced-geopandas-week-2-lecture-1-and-more">
+<h1>DSC 170. Advanced Geopandas. Week 2, lecture 1 (and more)<a class="headerlink" href="#dsc-170-advanced-geopandas-week-2-lecture-1-and-more" title="Permalink to this headline">¶</a></h1>
+<p>We will also look at several key data sources, for San Diego and California, and work with several real datasets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># loading the regular packages. Note that you need %matplotlib inline to show maps</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="c1"># to be able to work with map data</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">current_dir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/kaushikramganapathy/Downloads
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="let-s-explore-several-real-datasets">
+<h1>1. Let’s explore several real datasets<a class="headerlink" href="#let-s-explore-several-real-datasets" title="Permalink to this headline">¶</a></h1>
+<p>There are lots of spatial data available online, from federal, state and local agencies,  from companies, university projects, and idividual enthusiasts.</p>
+<p>A good source of data for San Diego is <a class="reference external" href="http://sandag.org">http://sandag.org</a> (go to Maps and GIS). This is a good example of a local (county-wide) spatial data warehouse, with integrated online mapping.</p>
+<p>Spatial data for California can be retrieved from CA data portal (<a class="reference external" href="http://data.ca.gov">http://data.ca.gov</a>), CA GIS portal (<a class="reference external" href="http://portal.gis.ca.gov/geoportal/catalog/search/browse/browse.page">http://portal.gis.ca.gov/geoportal/catalog/search/browse/browse.page</a>), or <a class="reference external" href="https://mapcruzin.com/free-united-states-shapefiles/free-california-arcgis-maps-shapefiles.htm">https://mapcruzin.com/free-united-states-shapefiles/free-california-arcgis-maps-shapefiles.htm</a>. There are many other sources as well.</p>
+<p>You may also consult various library guides, eg <a class="reference external" href="http://libguides.humboldt.edu/c.php?g=303789&amp;p=2026238">http://libguides.humboldt.edu/c.php?g=303789&amp;p=2026238</a>,  <a class="reference external" href="https://ucsd.libguides.com/data-statistics/frequentlyuseddata">https://ucsd.libguides.com/data-statistics/frequentlyuseddata</a></p>
+<p>For US-wide data, see <a class="reference external" href="http://data.gov">http://data.gov</a>. Many datasets are available as GeoJSON or shapefiles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># From SanDAG, we&#39;ll grab a layer of parks</span>
+
+<span class="c1"># From mapcruzin.com, we&#39;ll get CA Coastline and CA Water shapefiles</span>
+
+<span class="c1"># Note that data layers served by government agencies typically have </span>
+<span class="c1"># well-constructed metadata, following a common standard. Not always the case with other data.</span>
+
+
+<span class="c1"># first, read them into geodataframes, and explore, using INFO (for the tabular structure)</span>
+<span class="c1"># and PLOT (to create a map):</span>
+
+<span class="n">shpFileIn</span> <span class="o">=</span> <span class="s1">&#39;/Users/kaushikramganapathy/DSC-170/PARKS/PARKS.shp&#39;</span>
+<span class="n">sd_parks</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shpFileIn</span><span class="p">)</span>
+<span class="n">sd_parks</span><span class="o">.</span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method DataFrame.info of                          NAME    OWNERSHIP   GIS_ACRES   PARK_TYPE  \
+0           South Carlsbad SB  State Parks  115.895776       State   
+1             Torrey Pines SB  State Parks   67.294250       State   
+2                 Ruocco Park        SDUPD    3.312523       Local   
+3            Tuna Harbor Park        SDUPD    0.639034       Local   
+4     San Diego Bayfront Park        SDUPD    3.669269       Local   
+...                       ...          ...         ...         ...   
+2753              San Vicente   County DPR   68.864886  Open Space   
+2754          Dictionary Hill   County DPR  173.639484  Open Space   
+2755              San Vicente   County DPR   18.852955  Open Space   
+2756          Mountain Meadow   County DPR  669.069199  Open Space   
+2757             Peutz Valley   County DPR  254.631750  Open Space   
+
+                   SOURCE SOURCE_DAT SOURCE_NOT  \
+0             State Parks       0416       None   
+1             State Parks       0416       None   
+2                   SDUPD       0416       None   
+3                   SDUPD       0416       None   
+4                   SDUPD       0416       None   
+...                   ...        ...        ...   
+2753  County of San Diego       0219   Preserve   
+2754  County of San Diego       0219   Preserve   
+2755  County of San Diego       0219   Preserve   
+2756  County of San Diego       0219   Preserve   
+2757  County of San Diego       0219   Preserve   
+
+                                        LOCATION  \
+0                                           None   
+1                                           None   
+2           585 Harbor Ln, San Diego. California   
+3     700 North Harbor Dr, San Diego. California   
+4      One Park Boulevard, San Diego. California   
+...                                          ...   
+2753                                        None   
+2754                                        None   
+2755                                        None   
+2756                                        None   
+2757                                        None   
+
+                         ALIAS_NAME SOURCE_ID    Shape_STAr    Shape_STLe  \
+0        South Carlsbad State Beach       652  5.048404e+06  46294.948338   
+1          Torrey Pines State Beach       631  2.931328e+06  47389.938931   
+2                       Ruocco Park      None  1.443292e+05   1697.299067   
+3                  Tuna Harbor Park      None  2.782979e+04    981.199832   
+4           San Diego Bayfront Park      None  1.598233e+05   2252.806550   
+...                             ...       ...           ...           ...   
+2753  San Vicente (Moore / Moffett)       150  2.999745e+06   7235.204209   
+2754       Dictionary Hill Preserve       151  7.563711e+06  17097.270751   
+2755           San Vicente (Uridel)       152  8.212322e+05   4338.919700   
+2756       Mountain Meadow Preserve       153  2.914454e+07  36500.336424   
+2757      Peutz Valley (Helix Land)      None  1.109172e+07  14880.342861   
+
+                                               geometry  
+0     MULTIPOLYGON (((6231349.525 1990253.038, 62313...  
+1     POLYGON ((6251344.284 1922876.499, 6251350.215...  
+2     POLYGON ((6278279.348 1839865.880, 6278277.596...  
+3     POLYGON ((6277838.876 1839990.122, 6277846.397...  
+4     MULTIPOLYGON (((6281595.045 1837289.736, 62817...  
+...                                                 ...  
+2753  POLYGON ((6348269.053 1920157.608, 6348289.930...  
+2754  POLYGON ((6335550.000 1843356.000, 6335546.913...  
+2755  POLYGON ((6347237.607 1920881.031, 6346407.000...  
+2756  POLYGON ((6301005.784 2019923.915, 6301008.323...  
+2757  POLYGON ((6395923.344 1894761.280, 6395924.970...  
+
+[2758 rows x 13 columns]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Which operation would we use if we want to aggregate this dataset by park names?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># showing a single park by name</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">]</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">sd_parks</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span>
+<span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;All Seasons Park&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>geometry</th>
+      <th>NAME</th>
+      <th>OWNERSHIP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>222</th>
+      <td>POLYGON ((6338882.000 1803444.130, 6338474.500...</td>
+      <td>All Seasons Park</td>
+      <td>City of Chula Vista</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># experimenting with multiple names</span>
+
+<span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">,</span><span class="s1">&#39;LOCATION&#39;</span><span class="p">,</span><span class="s1">&#39;ALIAS_NAME&#39;</span><span class="p">]</span>
+<span class="n">sd_parks</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;prks.csv&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sd_parks</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CARMEL VALLEY OS&#39;</span><span class="p">])</span>
+
+<span class="n">sd_parks</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sd_parks</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CARMEL VALLEY OS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  NAME          OWNERSHIP   GIS_ACRES   PARK_TYPE  \
+762   CARMEL VALLEY OS  City of San Diego    3.166911  Open Space   
+809   CARMEL VALLEY OS  City of San Diego    0.795209  Open Space   
+824   CARMEL VALLEY OS  City of San Diego    1.791165  Open Space   
+854   CARMEL VALLEY OS  City of San Diego    0.670226  Open Space   
+876   CARMEL VALLEY OS  City of San Diego    0.398738  Open Space   
+...                ...                ...         ...         ...   
+2586  CARMEL VALLEY OS  City of San Diego    1.315454  Open Space   
+2593  CARMEL VALLEY OS  City of San Diego    0.818499  Open Space   
+2594  CARMEL VALLEY OS  City of San Diego    0.746216  Open Space   
+2612  CARMEL VALLEY OS  City of San Diego  211.958554  Open Space   
+2613  CARMEL VALLEY OS  City of San Diego   44.910700  Open Space   
+
+                 SOURCE SOURCE_DAT  SOURCE_NOT LOCATION  \
+762   City of San Diego       0516  Open Space     None   
+809   City of San Diego       0516  Open Space     None   
+824   City of San Diego       0516  Open Space     None   
+854   City of San Diego       0516  Open Space     None   
+876   City of San Diego       0516  Open Space     None   
+...                 ...        ...         ...      ...   
+2586  City of San Diego       0516  Open Space     None   
+2593  City of San Diego       0516  Open Space     None   
+2594  City of San Diego       0516  Open Space     None   
+2612  City of San Diego       0516  Open Space     None   
+2613  City of San Diego       0516  Open Space     None   
+
+                    ALIAS_NAME SOURCE_ID    Shape_STAr    Shape_STLe  \
+762   Carmel Valley Open Space      None  1.379502e+05   3212.101873   
+809   Carmel Valley Open Space      None  3.463920e+04    780.128217   
+824   Carmel Valley Open Space      None  7.802293e+04   1557.300368   
+854   Carmel Valley Open Space      None  2.919494e+04   1515.753110   
+876   Carmel Valley Open Space      None  1.736898e+04    581.562753   
+...                        ...       ...           ...           ...   
+2586  Carmel Valley Open Space      None  5.730101e+04   1060.532093   
+2593  Carmel Valley Open Space      None  3.565370e+04   1117.833934   
+2594          Carmel Valley Os      None  3.250509e+04   2883.177954   
+2612  Carmel Valley Open Space      None  9.232886e+06  35943.601012   
+2613  Carmel Valley Open Space      None  1.956304e+06  11006.004625   
+
+                                               geometry  
+762   POLYGON ((6262328.849 1924864.336, 6262280.073...  
+809   POLYGON ((6264566.286 1928510.375, 6264607.106...  
+824   POLYGON ((6263638.381 1928474.466, 6263773.197...  
+854   POLYGON ((6262983.718 1928462.357, 6262978.043...  
+876   POLYGON ((6265655.047 1924597.868, 6265592.564...  
+...                                                 ...  
+2586  POLYGON ((6263792.064 1928985.376, 6263792.552...  
+2593  POLYGON ((6265199.367 1926561.741, 6265105.423...  
+2594  POLYGON ((6261290.558 1923945.767, 6261323.253...  
+2612  POLYGON ((6261012.327 1935771.695, 6262416.864...  
+2613  POLYGON ((6264324.953 1933342.825, 6264289.420...  
+
+[93 rows x 13 columns]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_6_2.png" src="_images/Geopandas-2_6_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># experimenting with DISSOLVE</span>
+
+<span class="c1"># header=[&#39;NAME&#39;,&#39;OWNERSHIP&#39;,&#39;LOCATION&#39;,&#39;ALIAS_NAME&#39;]</span>
+<span class="c1"># sd_parks.to_csv(&#39;prks.csv&#39;, columns=header)</span>
+
+<span class="c1"># sd_parks.loc[sd_parks[&#39;NAME&#39;] == &#39;CARMEL VALLEY OS&#39;].plot()</span>
+
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">,</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">]</span>
+<span class="n">sd_parks_dissolved</span> <span class="o">=</span> <span class="n">sd_parks</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">dissolve</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span> <span class="n">aggfunc</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">as_index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sd_parks_dissolved</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_7_1.png" src="_images/Geopandas-2_7_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_parks_dissolved</span><span class="o">.</span><span class="n">geom_type</span>
+<span class="c1"># sd_parks.geom_type</span>
+
+<span class="c1"># park boundaries are provided by municipalities and organized into a single layer by SanDAG</span>
+
+<span class="c1"># might be an interesting exercise - to compute number of points per length of line segments in data from different sources</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0           Polygon
+1      MultiPolygon
+2           Polygon
+3      MultiPolygon
+4           Polygon
+           ...     
+939    MultiPolygon
+940         Polygon
+941         Polygon
+942         Polygon
+943         Polygon
+Length: 944, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s plot the parks data we just loaded</span>
+<span class="n">sd_parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_9_1.png" src="_images/Geopandas-2_9_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we also have several California datasets, preloaded in the &quot;data&quot; directory, </span>
+<span class="c1"># let&#39;s load water objects, and California coastline, from mapcruzin.com</span>
+
+<span class="n">shpFileIn</span> <span class="o">=</span> <span class="s1">&#39;/Users/kaushikramganapathy/Downloads/california_coastline/california_coastline.shp&#39;</span>
+
+<span class="n">ca_water</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shpFileIn</span><span class="p">)</span>
+<span class="n">ca_water</span><span class="o">.</span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method DataFrame.info of         NATURAL  NAME                                           geometry
+0     shoreline  None  LINESTRING (-124.34626 40.58457, -124.34643 40...
+1     shoreline  None  LINESTRING (-124.38934 40.40479, -124.38894 40...
+2     shoreline  None  LINESTRING (-124.35835 40.25615, -124.35821 40...
+3     shoreline  None  LINESTRING (-124.29407 40.63538, -124.29390 40...
+4     shoreline  None  LINESTRING (-124.27935 40.69336, -124.27956 40...
+...         ...   ...                                                ...
+1088  shoreline  None  LINESTRING (-117.11262 32.64937, -117.11267 32...
+1089  shoreline  None  LINESTRING (-117.11321 32.61468, -117.11347 32...
+1090  shoreline  None  LINESTRING (-117.10720 32.60446, -117.10794 32...
+1091  shoreline  None  LINESTRING (-117.10539 32.62500, -117.10528 32...
+1092  shoreline  None  LINESTRING (-117.10839 32.62942, -117.10812 32...
+
+[1093 rows x 3 columns]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ca_water</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;NATURAL&#39;</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">ca_water</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+<span class="c1"># see that not all water bodies have a name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NATURAL     1093
+NAME          58
+geometry    1093
+dtype: int64
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_11_1.png" src="_images/Geopandas-2_11_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">shpFileIn</span> <span class="o">=</span> <span class="s1">&#39;/Users/kaushikramganapathy/Downloads/california_coastline/california_coastline.shp&#39;</span>
+<span class="n">ca_coastline</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">shpFileIn</span><span class="p">)</span>
+<span class="n">ca_coastline</span><span class="o">.</span><span class="n">info</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;bound method DataFrame.info of         NATURAL  NAME                                           geometry
+0     shoreline  None  LINESTRING (-124.34626 40.58457, -124.34643 40...
+1     shoreline  None  LINESTRING (-124.38934 40.40479, -124.38894 40...
+2     shoreline  None  LINESTRING (-124.35835 40.25615, -124.35821 40...
+3     shoreline  None  LINESTRING (-124.29407 40.63538, -124.29390 40...
+4     shoreline  None  LINESTRING (-124.27935 40.69336, -124.27956 40...
+...         ...   ...                                                ...
+1088  shoreline  None  LINESTRING (-117.11262 32.64937, -117.11267 32...
+1089  shoreline  None  LINESTRING (-117.11321 32.61468, -117.11347 32...
+1090  shoreline  None  LINESTRING (-117.10720 32.60446, -117.10794 32...
+1091  shoreline  None  LINESTRING (-117.10539 32.62500, -117.10528 32...
+1092  shoreline  None  LINESTRING (-117.10839 32.62942, -117.10812 32...
+
+[1093 rows x 3 columns]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ca_map</span> <span class="o">=</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Geopandas-2_13_0.png" src="_images/Geopandas-2_13_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now, we&#39;ll try to create a single map showing several themes: coastline, water objects, and SD parks</span>
+<span class="c1"># recall how we combined several layers in the previous lecture: first you draw a basemap (eg coastline, </span>
+<span class="c1"># in our case), then add other layers to it. </span>
+
+
+<span class="n">ca_map</span> <span class="o">=</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">ca_water</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ca_map</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;NATURAL&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Geopandas-2_14_0.png" src="_images/Geopandas-2_14_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ca_map</span> <span class="o">=</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sd_parks</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ca_map</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">)</span>
+<span class="n">ca_map</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;SD Parks&quot;</span><span class="p">)</span>      
+
+<span class="c1"># you can set a map title and several other common map elements, but graphic capabilities here are limited</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;SD Parks&#39;)
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_15_1.png" src="_images/Geopandas-2_15_1.png" />
+</div>
+</div>
+<p><strong>Why don’t we see both the coastline and the parks??</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s check the coordinate reference system (crs) of the map layers</span>
+
+<span class="n">ca_water</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<p>EPSG (European Petroleum Survey Group) started cataloguing projections and giving them standard descriptions and identification numbers. It was later absorbed into IOGP (International Association of Oil &amp; Gas Producers), which maintains the “EPSG Geodetic Parameter Set”. The IDs are still known as EPSG codes.</p>
+<p>Remember the most widely used coordinate reference systems in our area:</p>
+<ul class="simple">
+<li><p>4326: WGS84, latitude/longitude, in decimal degrees, used in GPS; covers the world; <a class="reference external" href="http://epsg.io/4326">http://epsg.io/4326</a>, <a class="reference external" href="http://spatialreference.org/ref/epsg/4326/">http://spatialreference.org/ref/epsg/4326/</a>. Geographic coordinate system. The default used in most cases by web mapping APIs. You normally use this coord system in KML etc. If a CRS is not specified, and the data are relatively recent, and look like latitude and longitude, there is a good chance it is 4326.</p></li>
+<li><p>2230: California State Plane Zone 6, over NAD83, used for San Diego, feet <a class="reference external" href="http://spatialreference.org/ref/epsg/nad83-california-zone-6-ftus/">http://spatialreference.org/ref/epsg/nad83-california-zone-6-ftus/</a>, <a class="reference external" href="http://epsg.io/2230">http://epsg.io/2230</a>. State Plane Coordinate Systems are rectangular plane coord systems used within states (so expect local data in this system). Coordinates are in feet. Most states have several zones.</p></li>
+<li><p>3857: Projected coordinate system used by Google Maps, OpenStreetMap, etc. Use it when need to align with map tiles coming from online map services. Based on WGS84 datum. Also called Web Mercator projection, units are meters (but not uniform). Map servers convert lat/lon to 3857 internally to match with basemap imagery. Also known as EPSG:900913 (earlier and not too official; 900913 came from ‘GOOGLE’). Covers up to 85 degrees latitude. <a class="reference external" href="https://epsg.io/3857">https://epsg.io/3857</a> , <a class="reference external" href="https://en.wikipedia.org/wiki/Web_Mercator_projection">https://en.wikipedia.org/wiki/Web_Mercator_projection</a></p></li>
+<li><p>26911: UTM Zone 11N, over NAD83;  Topographic mapping. Larger areas; in meters. <a class="reference external" href="http://epsg.io/26911">http://epsg.io/26911</a>. UTM Grid is use din all countries, covers area between 80 degrees N and S. Divided into columns of 6 degrees (zones), numbered from 1 to 60. Each zone has a central meridian, it is assigned 500,000 m Easting (to make sure coordinates are positive numbers). Equator is assigned 0 m Northing for Northern Hemisphere; 10,000,000m Northing for Southern Hemisphere.</p></li>
+</ul>
+<p>Other good reference sites:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://mapref.org/">http://mapref.org/</a></p></li>
+<li><p><a class="reference external" href="https://proj4.org/operations/projections/">https://proj4.org/operations/projections/</a></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we can assign a coordinate reference system to geopandas geometry</span>
+
+<span class="n">ca_water</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;epsg:4326&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">CRSError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">3</span><span class="n">c</span><span class="o">/</span><span class="n">s37h4q712hl9dyyqp9lxps8c0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46401</span><span class="o">/</span><span class="mf">1248948765.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># we can assign a coordinate reference system to geopandas geometry</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">ca_water</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;epsg:4326&#39;</span><span class="p">}</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/geodataframe.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, attr, val)</span>
+<span class="g g-Whitespace">    </span><span class="mi">197</span>             <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">199</span>             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span> 
+<span class="g g-Whitespace">    </span><span class="mi">201</span>     <span class="k">def</span> <span class="nf">_get_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">__setattr__</span><span class="nt">(self, name, value)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5498</span>         <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">5499</span>             <span class="nb">object</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">5500</span>             <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5501</span>         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">5502</span>             <span class="k">pass</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/geodataframe.py</span> in <span class="ni">crs</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">421</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">422</span>             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s2">&quot;crs&quot;</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">423</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="n">value</span>
+<span class="g g-Whitespace">    </span><span class="mi">424</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">_crs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">crs</span>
+<span class="g g-Whitespace">    </span><span class="mi">425</span>             <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/array.py</span> in <span class="ni">crs</span><span class="nt">(self, value)</span>
+<span class="g g-Whitespace">    </span><span class="mi">334</span>     <span class="k">def</span> <span class="nf">crs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">335</span>         <span class="sd">&quot;&quot;&quot;Sets the value of the crs&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">336</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_crs</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="k">else</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_user_input</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span> 
+<span class="g g-Whitespace">    </span><span class="mi">338</span>     <span class="k">def</span> <span class="nf">check_geographic_crs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stacklevel</span><span class="p">):</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/pyproj/crs/crs.py</span> in <span class="ni">from_user_input</span><span class="nt">(cls, value, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">477</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">478</span>             <span class="k">return</span> <span class="n">value</span>
+<span class="ne">--&gt; </span><span class="mi">479</span>         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">480</span> 
+<span class="g g-Whitespace">    </span><span class="mi">481</span>     <span class="k">def</span> <span class="nf">get_geod</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Geod</span><span class="p">]:</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/pyproj/crs/crs.py</span> in <span class="ni">__init__</span><span class="nt">(self, projparams, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">313</span>                 <span class="n">projstring</span> <span class="o">=</span> <span class="n">projparams</span><span class="o">.</span><span class="n">to_wkt</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
+<span class="g g-Whitespace">    </span><span class="mi">314</span>             <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">315</span>                 <span class="k">raise</span> <span class="n">CRSError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid CRS input: </span><span class="si">{</span><span class="n">projparams</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">316</span> 
+<span class="g g-Whitespace">    </span><span class="mi">317</span>         <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+
+<span class="ne">CRSError</span>: Invalid CRS input: {&#39;epsg:4326&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ca_water</span><span class="o">.</span><span class="n">crs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Geographic 2D CRS: EPSG:4326&gt;
+Name: WGS 84
+Axis Info [ellipsoidal]:
+- Lat[north]: Geodetic latitude (degree)
+- Lon[east]: Geodetic longitude (degree)
+Area of Use:
+- name: World.
+- bounds: (-180.0, -90.0, 180.0, 90.0)
+Datum: World Geodetic System 1984 ensemble
+- Ellipsoid: WGS 84
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_parks</span><span class="o">.</span><span class="n">crs</span>
+
+<span class="c1"># notice that now we have a different coordinate system!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Projected CRS: EPSG:2230&gt;
+Name: NAD83 / California zone 6 (ftUS)
+Axis Info [cartesian]:
+- X[east]: Easting (US survey foot)
+- Y[north]: Northing (US survey foot)
+Area of Use:
+- name: United States (USA) - California - counties Imperial; Orange; Riverside; San Diego.
+- bounds: (-118.15, 32.53, -114.42, 34.08)
+Coordinate Operation:
+- name: SPCS83 California zone 6 (US Survey feet)
+- method: Lambert Conic Conformal (2SP)
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># have to reproject so that the coordinates match</span>
+
+<span class="n">sd_parks2</span> <span class="o">=</span> <span class="n">sd_parks</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;epsg:4326&#39;</span><span class="p">)</span>
+
+<span class="c1"># in the most recent version it is much faster than before!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># notice that polygon coordinates are now different</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>OWNERSHIP</th>
+      <th>GIS_ACRES</th>
+      <th>PARK_TYPE</th>
+      <th>SOURCE</th>
+      <th>SOURCE_DAT</th>
+      <th>SOURCE_NOT</th>
+      <th>LOCATION</th>
+      <th>ALIAS_NAME</th>
+      <th>SOURCE_ID</th>
+      <th>Shape_STAr</th>
+      <th>Shape_STLe</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>South Carlsbad SB</td>
+      <td>State Parks</td>
+      <td>115.895776</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>South Carlsbad State Beach</td>
+      <td>652</td>
+      <td>5.048404e+06</td>
+      <td>46294.948338</td>
+      <td>MULTIPOLYGON (((-117.32891 33.12345, -117.3287...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Torrey Pines SB</td>
+      <td>State Parks</td>
+      <td>67.294250</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Torrey Pines State Beach</td>
+      <td>631</td>
+      <td>2.931328e+06</td>
+      <td>47389.938931</td>
+      <td>POLYGON ((-117.26147 32.93883, -117.26144 32.9...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ruocco Park</td>
+      <td>SDUPD</td>
+      <td>3.312523</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>585 Harbor Ln, San Diego. California</td>
+      <td>Ruocco Park</td>
+      <td>None</td>
+      <td>1.443292e+05</td>
+      <td>1697.299067</td>
+      <td>POLYGON ((-117.17129 32.71138, -117.17129 32.7...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tuna Harbor Park</td>
+      <td>SDUPD</td>
+      <td>0.639034</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>700 North Harbor Dr, San Diego. California</td>
+      <td>Tuna Harbor Park</td>
+      <td>None</td>
+      <td>2.782979e+04</td>
+      <td>981.199832</td>
+      <td>POLYGON ((-117.17272 32.71171, -117.17270 32.7...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>San Diego Bayfront Park</td>
+      <td>SDUPD</td>
+      <td>3.669269</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>One Park Boulevard, San Diego. California</td>
+      <td>San Diego Bayfront Park</td>
+      <td>None</td>
+      <td>1.598233e+05</td>
+      <td>2252.806550</td>
+      <td>MULTIPOLYGON (((-117.16044 32.70438, -117.1600...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s try to construct a multu-layer map again, at least with the coastline and parks</span>
+
+<span class="n">ca_map</span> <span class="o">=</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sd_parks2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ca_map</span><span class="p">,</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">ca_map</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;SD Parks&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;SD Parks&#39;)
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_24_1.png" src="_images/Geopandas-2_24_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># it would be a good idea, before attempting any geometric operations, to assert that CRS match:</span>
+<span class="k">assert</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">sd_parks</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;CRS are different!&quot;</span>
+<span class="k">assert</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">ca_water</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;CRS are different!&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AssertionError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">3</span><span class="n">c</span><span class="o">/</span><span class="n">s37h4q712hl9dyyqp9lxps8c0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46401</span><span class="o">/</span><span class="mf">2824883492.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># it would be a good idea, before attempting any geometric operations, to assert that CRS match:</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="k">assert</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">sd_parks</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;CRS are different!&quot;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="k">assert</span> <span class="n">ca_coastline</span><span class="o">.</span><span class="n">crs</span> <span class="o">==</span> <span class="n">ca_water</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;CRS are different!&quot;</span>
+
+<span class="ne">AssertionError</span>: CRS are different!
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="more-info-about-projections-in-geopandas-http-geopandas-org-projections-html">
+<h1>More info about projections in Geopandas: <a class="reference external" href="http://geopandas.org/projections.html">http://geopandas.org/projections.html</a><a class="headerlink" href="#more-info-about-projections-in-geopandas-http-geopandas-org-projections-html" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="let-s-have-a-little-more-fun-with-projections-using-world-map">
+<h2>Let’s have a little more fun with projections, using world map<a class="headerlink" href="#let-s-have-a-little-more-fun-with-projections-using-world-map" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geopandas</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;naturalearth_lowres&#39;</span><span class="p">))</span>
+<span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epsg:4326
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_27_1.png" src="_images/Geopandas-2_27_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s look at at the world map in the Web Mercator projection, and then in a couple others</span>
+<span class="n">world_m</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s1">&#39;epsg:3395&#39;</span><span class="p">)</span>
+<span class="n">world_m</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="n">world_m</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;+proj=eck4 +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs&quot;</span><span class="p">)</span>
+<span class="n">world_m</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span> <span class="c1">#Eckert IV (copied from https://epsg.io/54012)</span>
+
+<span class="n">world_m</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot; +proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m no_defs&quot;</span><span class="p">)</span>
+<span class="n">world_m</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span> <span class="c1">#Mollweide (copied from https://epsg.io/54009)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_28_1.png" src="_images/Geopandas-2_28_1.png" />
+<img alt="_images/Geopandas-2_28_2.png" src="_images/Geopandas-2_28_2.png" />
+<img alt="_images/Geopandas-2_28_3.png" src="_images/Geopandas-2_28_3.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="tissot-s-indicatrix">
+<h1>Tissot’s Indicatrix<a class="headerlink" href="#tissot-s-indicatrix" title="Permalink to this headline">¶</a></h1>
+<p>… is a way to charactrize local distrotions due to map projection: a geometry that results from projecting a small circle from a globe onto a map. It results in an ellipse; its shape indicates local distortions. Tissot was a 19th century French mathematician.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># here is a brief code fragment for drawing Tissot&#39;s indicatrix ellipses for several projections</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1">#     ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())</span>
+<span class="c1">#     ax = fig.add_subplot(1, 1, 1, projection=ccrs.Mollweide())</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="n">ccrs</span><span class="o">.</span><span class="n">Gnomonic</span><span class="p">())</span>
+
+<span class="c1"># make the map global rather than have it zoom in to</span>
+<span class="c1"># the extents of any plotted data</span>
+
+
+<span class="c1"># Gnomonic is the oldest map projection, developed by Thales in the 6th century BC.  </span>
+<span class="c1"># Meridians and the equator are great circles, so shown as straight lines. Angles are preserved.</span>
+
+<span class="c1"># Plate Carree (equirectangular; equidistant cylindrical projection) - probably second oldest, </span>
+<span class="c1"># from Marinus of Tyre, who, according to Ptolemy, invented it about 1st century AD.</span>
+
+<span class="c1"># Mollweide (equal-area; pseudocylindrical projection, or elliptical projection)</span>
+<span class="c1"># Doesn&#39;t preserve angles and shapes - but preserves areas, so used in world maps </span>
+<span class="c1"># where comparison od areas is important.</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_global</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">stock_img</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">tissot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">3</span><span class="n">c</span><span class="o">/</span><span class="n">s37h4q712hl9dyyqp9lxps8c0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46401</span><span class="o">/</span><span class="mf">1204381194.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">cartopy.crs</span> <span class="k">as</span> <span class="nn">ccrs</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;cartopy&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="even-more-fun-with-projections">
+<h2>Even more fun with projections?<a class="headerlink" href="#even-more-fun-with-projections" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="https://xkcd.com/977/">https://xkcd.com/977/</a> (the best map projection for YOU!)</p>
+</div>
+</div>
+<div class="section" id="spatial-operations">
+<h1>2. Spatial Operations<a class="headerlink" href="#spatial-operations" title="Permalink to this headline">¶</a></h1>
+<p>Now that we have coordinate information in the data frame, we can do spatial operations over it. Let’s experiment with several simple operations first:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">geom_type</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks</span><span class="o">.</span><span class="n">total_bounds</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">centroid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">representative_point</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># eg when you need to place a label or point inside a polygon, guaranteed to be inside</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">area</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># compare with:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sd_parks</span><span class="o">.</span><span class="n">area</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MultiPolygon
+[-117.59618406   32.53467845 -115.8567526    33.54342826]
+[6150762.64126498 1775451.8106298  6682061.56390123 2141524.66706529]
+POINT (-117.3220256162607 33.10846800281045)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3c/s37h4q712hl9dyyqp9lxps8c0000gn/T/ipykernel_46401/1727502517.py:4: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  print(sd_parks2.centroid[0])
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POINT (-117.3291402518812 33.12690553104959)
+4.5310647073727206e-05
+5048404.271402389
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3c/s37h4q712hl9dyyqp9lxps8c0000gn/T/ipykernel_46401/1727502517.py:6: UserWarning: Geometry is in a geographic CRS. Results from &#39;area&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  print(sd_parks2.area[0]) # compare with:
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="computing-distance-between-spatial-objects-and-exploring-spatial-relationships">
+<h2>Computing distance between spatial objects, and exploring spatial relationships<a class="headerlink" href="#computing-distance-between-spatial-objects-and-exploring-spatial-relationships" title="Permalink to this headline">¶</a></h2>
+<p>There are two options when computing distance (or other relationships):</p>
+<ol class="simple">
+<li><p>your objects are in two different geodataframes (or geoseries): sd_parks2.distance(ca_water) will return distances beetween each park and objects in ca_water</p></li>
+<li><p>your objects are in the same dataframe, and you need to compute distances between pairs of objects: use shift()… if it makes sense.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example of the first option:</span>
+
+<span class="c1"># let&#39;s figure out the ID of Lake Hodges, then compute distances from first 5 parks to this lake</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ca_water</span><span class="p">[</span><span class="n">ca_water</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Lake Hodges&#39;</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    
+<span class="c1">#     the format is: gdf1.distance(object_in_gdf2)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">ca_water</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">7108</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">])[</span><span class="n">i</span><span class="p">],</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;NAME&#39;</span><span class="p">])</span>
+    
+    
+<span class="c1">#      Question: What are the units of distance here??</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Empty GeoDataFrame
+Columns: [NATURAL, NAME, geometry]
+Index: []
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexes/range.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span>                 <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">385</span>                     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">new_key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span>                 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="ne">ValueError</span>: 7108 is not in range
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">3</span><span class="n">c</span><span class="o">/</span><span class="n">s37h4q712hl9dyyqp9lxps8c0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46401</span><span class="o">/</span><span class="mf">2576231500.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1">#     the format is: gdf1.distance(object_in_gdf2)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+<span class="ne">---&gt; </span><span class="mi">10</span>     <span class="nb">print</span><span class="p">(</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">ca_water</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">7108</span><span class="p">,</span><span class="s1">&#39;geometry&#39;</span><span class="p">])[</span><span class="n">i</span><span class="p">],</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;NAME&#39;</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span> 
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">923</span>                 <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">IndexError</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">924</span>                     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">takeable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_takeable</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">925</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_tuple</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">926</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">927</span>             <span class="c1"># we by definition only have the 0th axis</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_tuple</span><span class="nt">(self, tup)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1098</span>     <span class="k">def</span> <span class="nf">_getitem_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tup</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1099</span>         <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">IndexingError</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1100</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_lowerdim</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1101</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1102</span>         <span class="c1"># no multi-index, so validate all of the indexers</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_lowerdim</span><span class="nt">(self, tup)</span>
+<span class="g g-Whitespace">    </span><span class="mi">836</span>                 <span class="c1"># We don&#39;t need to check for tuples here because those are</span>
+<span class="g g-Whitespace">    </span><span class="mi">837</span>                 <span class="c1">#  caught by the _is_nested_tuple_indexer check above.</span>
+<span class="ne">--&gt; </span><span class="mi">838</span>                 <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_axis</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">839</span> 
+<span class="g g-Whitespace">    </span><span class="mi">840</span>                 <span class="c1"># We should never have a scalar section here, because</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_getitem_axis</span><span class="nt">(self, key, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1162</span>         <span class="c1"># fall thru to straight lookup</span>
+<span class="g g-Whitespace">   </span><span class="mi">1163</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_key</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1164</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_label</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1165</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1166</span>     <span class="k">def</span> <span class="nf">_get_slice_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slice_obj</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexing.py</span> in <span class="ni">_get_label</span><span class="nt">(self, label, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1111</span>     <span class="k">def</span> <span class="nf">_get_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1112</span>         <span class="c1"># GH#5667 this will fail if the label is not present in the axis.</span>
+<span class="ne">-&gt; </span><span class="mi">1113</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1114</span> 
+<span class="g g-Whitespace">   </span><span class="mi">1115</span>     <span class="k">def</span> <span class="nf">_handle_lowerdim_multi_index_axis0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tup</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/generic.py</span> in <span class="ni">xs</span><span class="nt">(self, key, axis, level, drop_level)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3774</span>                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected label or tuple of labels, got </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+<span class="g g-Whitespace">   </span><span class="mi">3775</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3776</span>             <span class="n">loc</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3777</span> 
+<span class="g g-Whitespace">   </span><span class="mi">3778</span>             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+
+<span class="nn">~/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/pandas/core/indexes/range.py</span> in <span class="ni">get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>                     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_range</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">new_key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span>                 <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">387</span>                     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span>             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span>         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: 7108
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example of the second option</span>
+
+<span class="c1"># let&#39;s create a subset of a gdf, with 10 parks:</span>
+
+<span class="n">sd_parks_dis</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">sd_parks_dis</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>OWNERSHIP</th>
+      <th>GIS_ACRES</th>
+      <th>PARK_TYPE</th>
+      <th>SOURCE</th>
+      <th>SOURCE_DAT</th>
+      <th>SOURCE_NOT</th>
+      <th>LOCATION</th>
+      <th>ALIAS_NAME</th>
+      <th>SOURCE_ID</th>
+      <th>Shape_STAr</th>
+      <th>Shape_STLe</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>South Carlsbad SB</td>
+      <td>State Parks</td>
+      <td>115.895776</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>South Carlsbad State Beach</td>
+      <td>652</td>
+      <td>5.048404e+06</td>
+      <td>46294.948338</td>
+      <td>MULTIPOLYGON (((-117.32891 33.12345, -117.3287...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Torrey Pines SB</td>
+      <td>State Parks</td>
+      <td>67.294250</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Torrey Pines State Beach</td>
+      <td>631</td>
+      <td>2.931328e+06</td>
+      <td>47389.938931</td>
+      <td>POLYGON ((-117.26147 32.93883, -117.26144 32.9...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ruocco Park</td>
+      <td>SDUPD</td>
+      <td>3.312523</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>585 Harbor Ln, San Diego. California</td>
+      <td>Ruocco Park</td>
+      <td>None</td>
+      <td>1.443292e+05</td>
+      <td>1697.299067</td>
+      <td>POLYGON ((-117.17129 32.71138, -117.17129 32.7...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tuna Harbor Park</td>
+      <td>SDUPD</td>
+      <td>0.639034</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>700 North Harbor Dr, San Diego. California</td>
+      <td>Tuna Harbor Park</td>
+      <td>None</td>
+      <td>2.782979e+04</td>
+      <td>981.199832</td>
+      <td>POLYGON ((-117.17272 32.71171, -117.17270 32.7...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>San Diego Bayfront Park</td>
+      <td>SDUPD</td>
+      <td>3.669269</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>One Park Boulevard, San Diego. California</td>
+      <td>San Diego Bayfront Park</td>
+      <td>None</td>
+      <td>1.598233e+05</td>
+      <td>2252.806550</td>
+      <td>MULTIPOLYGON (((-117.16044 32.70438, -117.1600...</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Pepper Park</td>
+      <td>SDUPD</td>
+      <td>4.820511</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>3299 Tidelands Av, National City. California</td>
+      <td>Pepper Park</td>
+      <td>None</td>
+      <td>2.099771e+05</td>
+      <td>2249.917867</td>
+      <td>POLYGON ((-117.11039 32.65078, -117.11010 32.6...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Ocotillo Wells SVRA</td>
+      <td>State Parks</td>
+      <td>21283.675293</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Ocotillo Wells SVRA</td>
+      <td>439</td>
+      <td>9.271140e+08</td>
+      <td>786654.426653</td>
+      <td>MULTIPOLYGON (((-116.06378 33.13307, -116.0637...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>We-Nelsch CP</td>
+      <td>State Parks</td>
+      <td>433.135937</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>We-Nelsch Cultural Preserve</td>
+      <td>626</td>
+      <td>1.886734e+07</td>
+      <td>20369.621509</td>
+      <td>POLYGON ((-116.47999 33.10050, -116.47998 33.1...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Agua Caliente County Park (ABDSP)</td>
+      <td>State Parks</td>
+      <td>681.321305</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Agua Caliente County Park</td>
+      <td>622</td>
+      <td>2.967826e+07</td>
+      <td>31523.788380</td>
+      <td>MULTIPOLYGON (((-116.29498 32.96230, -116.2950...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Santa Rosa Mountains SW</td>
+      <td>State Parks</td>
+      <td>136643.958677</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Santa Rosa Mountains State Wilderness</td>
+      <td>627</td>
+      <td>5.952192e+09</td>
+      <td>753253.030634</td>
+      <td>MULTIPOLYGON (((-116.41481 33.36547, -116.4148...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># then compute distance between parks 0 and 1, 1 and 2, ...</span>
+
+<span class="n">dis</span> <span class="o">=</span> <span class="n">sd_parks_dis</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">sd_parks_dis</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>
+<span class="n">dis</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3c/s37h4q712hl9dyyqp9lxps8c0000gn/T/ipykernel_46401/3528862003.py:3: UserWarning: Geometry is in a geographic CRS. Results from &#39;distance&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  dis = sd_parks_dis.distance(sd_parks_dis.shift())
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0         NaN
+1    0.134676
+2    0.191817
+3    0.000000
+4    0.014054
+5    0.071003
+6    1.136393
+7    0.391667
+8    0.209655
+9    0.333841
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Adjacency is another common property that can be analyzed with Geopandas.</span>
+<span class="c1"># Let&#39;s check if there are adhacent parks in the sequence of the first 10 parks:</span>
+<span class="n">adjacent</span> <span class="o">=</span> <span class="n">sd_parks_dis</span><span class="o">.</span><span class="n">touches</span><span class="p">(</span><span class="n">sd_parks_dis</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>
+<span class="n">adjacent</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1    False
+2    False
+3    False
+4    False
+5    False
+6    False
+7    False
+8    False
+9    False
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-general-format-of-binary-predicates">
+<h2>The general format of binary predicates:<a class="headerlink" href="#the-general-format-of-binary-predicates" title="Permalink to this headline">¶</a></h2>
+<p>GeoSeries.topological_condition(other)   –&gt; returns True or False</p>
+<p>These predicates check for several types of topological relationships. They are constructed from relationships between boundaries and interiors of objects.</p>
+<p>These topological operations can be:</p>
+<ul class="simple">
+<li><p>touches (interiors don’t intersect, but have at least one point in common)</p></li>
+<li><p>within (or completely within: object boundaries don’t touch, and both boundary and interior of one object is within another).</p></li>
+<li><p>contains (object’s interior contains boundary and interior of the other object; it is inverse of the “within”: a.within(b) == b.contains(a)). This is how you do a common point-in-polygon (PIP) test: either p1.within(poly) or poly.contains(p1). The algorithm is Ray Casting (<a class="reference external" href="https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm">https://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm</a>) - but it is already implemented in Geopandas (and many other libraries)</p></li>
+<li><p>intersects</p></li>
+<li><p>geom_equals</p></li>
+<li><p>geom_almost_equals (Geoseries.geom_almost_equals(other, decimal=N). Here, N is the number of decimal places that specifies tolerance when evaluating approximate equality. Obviously, depends on the units of the projection.</p></li>
+<li><p>disjoint (boundaries or interiors don’t intersect)</p></li>
+<li><p>crosses (object’s interior intersects the interior of the other object, but does not contain it, and dimension of the intersection is less than the dimension of the one or the other; typically in “road crosses a park” scenario)</p></li>
+</ul>
+<p><strong>In the previous example we saw two different parks that are not adjacent, but have a distance of 0 betweem them. How could that happen?</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s see what is going on!</span>
+<span class="n">sd_parks_dis</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">)</span>
+
+<span class="n">intersect</span> <span class="o">=</span> <span class="n">sd_parks_dis</span><span class="o">.</span><span class="n">intersects</span><span class="p">(</span><span class="n">sd_parks_dis</span><span class="o">.</span><span class="n">shift</span><span class="p">())</span>
+<span class="n">intersect</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    False
+1    False
+2    False
+3     True
+4    False
+5    False
+6    False
+7    False
+8    False
+9    False
+dtype: bool
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_41_1.png" src="_images/Geopandas-2_41_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="a-summary-of-spatial-operations">
+<h2>A summary of spatial operations:<a class="headerlink" href="#a-summary-of-spatial-operations" title="Permalink to this headline">¶</a></h2>
+<p>For a complete list see at <a class="reference external" href="http://geopandas.org/reference.html">http://geopandas.org/reference.html</a>. Shapely manual has more extensive explanations: <a class="reference external" href="https://shapely.readthedocs.io/en/latest/manual.html">https://shapely.readthedocs.io/en/latest/manual.html</a>.</p>
+<p>The key operations are:</p>
+<p><em>Binary predicates</em> (see above)</p>
+<p><em>Set-theoretical methods</em>: return GeoSeries</p>
+<ul class="simple">
+<li><p>difference: returns part of the first object’s geometry that is not in other</p></li>
+<li><p>intersection: returns part of object’s geometry that is also in other</p></li>
+<li><p>union: returns a union of object geometries</p></li>
+<li><p>symmetric_difference: returns parts of both geometries that are not in other</p></li>
+</ul>
+<p><em>Constructive methods</em>: return GeoSeries. Work on a single object or series.</p>
+<ul class="simple">
+<li><p>buffer: returns geometry within a given distance from an object</p></li>
+<li><p>boundary: returns geometry of lower-dimensional object</p></li>
+<li><p>centroid</p></li>
+<li><p>representative_point: similar to centroid, but ensures that it is within the higher-dimensional geometry</p></li>
+<li><p>envelope: bounding rectangle of a geometry, with sides parallel to coordinate axes</p></li>
+<li><p>convex_hull: smallest convex polygon containing all points of a geometry</p></li>
+</ul>
+</div>
+<div class="section" id="let-s-explore-some-of-them">
+<h2>Let’s explore some of them<a class="headerlink" href="#let-s-explore-some-of-them" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># what you can do with centroids</span>
+<span class="c1"># The current geometry column is park polygons</span>
+<span class="n">sd_parks2</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">name</span> <span class="c1"># this is the default geometry column name</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;geometry&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># create centroids and switch geometry to this new column</span>
+<span class="n">sd_parks2</span><span class="p">[</span><span class="s1">&#39;centroids&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">centroid</span>
+<span class="n">sd_parks2</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s1">&#39;centroids&#39;</span><span class="p">)</span>
+<span class="n">sd_parks2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">sd_parks2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># see, the same parks are now shown as centroids.</span>
+<span class="c1"># Sometimes, it makes sense to show polygon objects as points - </span>
+<span class="c1"># especially if their geometry isn&#39;t critical, and one needs to see </span>
+<span class="c1"># all of them when zoomed out</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3c/s37h4q712hl9dyyqp9lxps8c0000gn/T/ipykernel_46401/3413076624.py:2: UserWarning: Geometry is in a geographic CRS. Results from &#39;centroid&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  sd_parks2[&#39;centroids&#39;] = sd_parks2.centroid
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>OWNERSHIP</th>
+      <th>GIS_ACRES</th>
+      <th>PARK_TYPE</th>
+      <th>SOURCE</th>
+      <th>SOURCE_DAT</th>
+      <th>SOURCE_NOT</th>
+      <th>LOCATION</th>
+      <th>ALIAS_NAME</th>
+      <th>SOURCE_ID</th>
+      <th>Shape_STAr</th>
+      <th>Shape_STLe</th>
+      <th>geometry</th>
+      <th>centroids</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>South Carlsbad SB</td>
+      <td>State Parks</td>
+      <td>115.895776</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>South Carlsbad State Beach</td>
+      <td>652</td>
+      <td>5.048404e+06</td>
+      <td>46294.948338</td>
+      <td>MULTIPOLYGON (((-117.32891 33.12345, -117.3287...</td>
+      <td>POINT (-117.32203 33.10847)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Torrey Pines SB</td>
+      <td>State Parks</td>
+      <td>67.294250</td>
+      <td>State</td>
+      <td>State Parks</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Torrey Pines State Beach</td>
+      <td>631</td>
+      <td>2.931328e+06</td>
+      <td>47389.938931</td>
+      <td>POLYGON ((-117.26147 32.93883, -117.26144 32.9...</td>
+      <td>POINT (-117.25851 32.92029)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Ruocco Park</td>
+      <td>SDUPD</td>
+      <td>3.312523</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>585 Harbor Ln, San Diego. California</td>
+      <td>Ruocco Park</td>
+      <td>None</td>
+      <td>1.443292e+05</td>
+      <td>1697.299067</td>
+      <td>POLYGON ((-117.17129 32.71138, -117.17129 32.7...</td>
+      <td>POINT (-117.17214 32.71105)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tuna Harbor Park</td>
+      <td>SDUPD</td>
+      <td>0.639034</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>700 North Harbor Dr, San Diego. California</td>
+      <td>Tuna Harbor Park</td>
+      <td>None</td>
+      <td>2.782979e+04</td>
+      <td>981.199832</td>
+      <td>POLYGON ((-117.17272 32.71171, -117.17270 32.7...</td>
+      <td>POINT (-117.17306 32.71206)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>San Diego Bayfront Park</td>
+      <td>SDUPD</td>
+      <td>3.669269</td>
+      <td>Local</td>
+      <td>SDUPD</td>
+      <td>0416</td>
+      <td>None</td>
+      <td>One Park Boulevard, San Diego. California</td>
+      <td>San Diego Bayfront Park</td>
+      <td>None</td>
+      <td>1.598233e+05</td>
+      <td>2252.806550</td>
+      <td>MULTIPOLYGON (((-117.16044 32.70438, -117.1600...</td>
+      <td>POINT (-117.15950 32.70390)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/Geopandas-2_44_2.png" src="_images/Geopandas-2_44_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if we switch geometry back to polygons, and plot - we&#39;ll see the old polygon map</span>
+<span class="n">sd_parks2</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="s1">&#39;geometry&#39;</span><span class="p">)</span>
+<span class="n">sd_parks2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_45_1.png" src="_images/Geopandas-2_45_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Buffer is a very common operation on spatial objects: it creates a set </span>
+<span class="c1"># of polygons showing area at a specified distance from the original objects</span>
+
+<span class="n">sd_parks_buffer</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="mf">.03</span><span class="p">)</span>
+<span class="n">map1</span> <span class="o">=</span> <span class="n">sd_parks_buffer</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">sd_parks2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">map1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3c/s37h4q712hl9dyyqp9lxps8c0000gn/T/ipykernel_46401/4152551048.py:4: UserWarning: Geometry is in a geographic CRS. Results from &#39;buffer&#39; are likely incorrect. Use &#39;GeoSeries.to_crs()&#39; to re-project geometries to a projected CRS before this operation.
+
+  sd_parks_buffer = sd_parks2.buffer(.03)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_46_2.png" src="_images/Geopandas-2_46_2.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="constructing-a-geopandas-geodataframe">
+<h1>3. Constructing a Geopandas geodataframe<a class="headerlink" href="#constructing-a-geopandas-geodataframe" title="Permalink to this headline">¶</a></h1>
+<p>In most cases, you will be reading spatial data files from other sources. But sometimes you need to create a data frame with points of interest from scratch - for example when you need to do some distance-based operations relative to these points. There are several ways to do this.</p>
+<div class="section" id="one-option-is-to-use-shapely-point-constructor-to-create-a-geoseries-and-then-a-geodataframe-from-it">
+<h2>One option is to use shapely Point constructor to create a GeoSeries, and then a GeoDataFrame from it<a class="headerlink" href="#one-option-is-to-use-shapely-point-constructor-to-create-a-geoseries-and-then-a-geodataframe-from-it" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="n">geoseries</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">([</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="mf">117.2418439</span><span class="p">,</span> <span class="mf">32.8844393</span><span class="p">)])</span> <span class="c1"># this is SDSC building, in WKT </span>
+
+<span class="c1"># can do this for multiple objects: ...GeoSeries([Point(x1,y1), Point(x2,y2), Point(x3,y3)])</span>
+
+<span class="n">geoseries</span>
+
+<span class="c1"># note that x (longitude) goes first</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    POINT (-117.24184 32.88444)
+dtype: geometry
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Then, we can create a GeoDataFrame from the GeoSeries:</span>
+
+<span class="n">gdf_point</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">geoseries</span><span class="p">)</span>
+<span class="n">gdf_point</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">geoseries</span>
+<span class="n">gdf_point</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span><span class="s1">&#39;SDSC Building&#39;</span>
+<span class="n">gdf_point</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_49_1.png" src="_images/Geopandas-2_49_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="another-option-is-to-create-a-pandas-dataframe-and-then-a-geodataframe-from-it">
+<h2>Another option is to create a pandas dataframe, and then a GeoDataFrame from it<a class="headerlink" href="#another-option-is-to-create-a-pandas-dataframe-and-then-a-geodataframe-from-it" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Another common task is to add a point or collection of points to a map (eg proposed locations)</span>
+<span class="c1"># and run some analysis models for them</span>
+<span class="c1"># For this you would need to create a GeoDataFrame from a Pandas dataframe with coordinates</span>
+
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="s1">&#39;Proposed Coffee Shop&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Location 1&#39;</span><span class="p">,</span> <span class="s1">&#39;Location 2&#39;</span><span class="p">,</span> <span class="s1">&#39;Location 3&#39;</span><span class="p">,</span> <span class="s1">&#39;Location 4&#39;</span><span class="p">],</span>
+     <span class="s1">&#39;Latitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">32.852</span><span class="p">,</span> <span class="mf">32.920</span><span class="p">,</span> <span class="mf">33.006</span><span class="p">,</span> <span class="mf">32.781</span><span class="p">],</span>
+     <span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">117.219</span><span class="p">,</span><span class="o">-</span><span class="mf">117.256</span><span class="p">,</span> <span class="o">-</span><span class="mf">117.276</span><span class="p">,</span> <span class="o">-</span><span class="mf">117.229</span><span class="p">]})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Proposed Coffee Shop</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Location 1</td>
+      <td>32.852</td>
+      <td>-117.219</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Location 2</td>
+      <td>32.920</td>
+      <td>-117.256</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Location 3</td>
+      <td>33.006</td>
+      <td>-117.276</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Location 4</td>
+      <td>32.781</td>
+      <td>-117.229</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now, we need to convert this to coordinates, and assign it to Point</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Longitude</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Latitude</span><span class="p">))</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Coordinates&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Coordinates&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Point</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Proposed Coffee Shop</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Coordinates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Location 1</td>
+      <td>32.852</td>
+      <td>-117.219</td>
+      <td>POINT (-117.219 32.852)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Location 2</td>
+      <td>32.920</td>
+      <td>-117.256</td>
+      <td>POINT (-117.256 32.92)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Location 3</td>
+      <td>33.006</td>
+      <td>-117.276</td>
+      <td>POINT (-117.276 33.006)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Location 4</td>
+      <td>32.781</td>
+      <td>-117.229</td>
+      <td>POINT (-117.229 32.781)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># next, create a GeoDataFrame from the DataFrame, simply assigning the Coordinates to be</span>
+<span class="c1"># the geometry column</span>
+<span class="n">new_locations</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s1">&#39;Coordinates&#39;</span><span class="p">)</span>
+<span class="n">new_map</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;OWNERSHIP&#39;</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">new_locations</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">new_map</span><span class="p">,</span> <span class="n">legend</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_53_1.png" src="_images/Geopandas-2_53_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="yet-another-option-for-simple-spatial-objects-is-to-use-geojson-io">
+<h2>Yet another option (for simple spatial objects) is to use <a class="reference external" href="http://geojson.io">geojson.io</a>:<a class="headerlink" href="#yet-another-option-for-simple-spatial-objects-is-to-use-geojson-io" title="Permalink to this headline">¶</a></h2>
+<p>Create objects manually, then copy geojson fragment into your notebook (eg into a variable ‘geojson’), and read it into geopandas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geojson</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There is a large collection of GeoJSON files at <a class="reference external" href="https://catalog.data.gov/dataset?res_format=GeoJSON">https://catalog.data.gov/dataset?res_format=GeoJSON</a>
+They are of unknown size; typically exported from other formats on the fly.</p>
+<p>Pre-built geojson files: <a class="reference external" href="https://eric.clst.org/tech/usgeojson/">https://eric.clst.org/tech/usgeojson/</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geojson</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">{</span>
+<span class="s1">  &quot;type&quot;: &quot;FeatureCollection&quot;,</span>
+<span class="s1">  &quot;features&quot;: [</span>
+<span class="s1">    {</span>
+<span class="s1">      &quot;type&quot;: &quot;Feature&quot;,</span>
+<span class="s1">      &quot;properties&quot;: </span><span class="si">{}</span><span class="s1">,</span>
+<span class="s1">      &quot;geometry&quot;: {</span>
+<span class="s1">        &quot;type&quot;: &quot;Point&quot;,</span>
+<span class="s1">        &quot;coordinates&quot;: [</span>
+<span class="s1">          -117.23756432533266,</span>
+<span class="s1">          32.881145927337116</span>
+<span class="s1">        ]</span>
+<span class="s1">      }</span>
+<span class="s1">    }</span>
+<span class="s1">  ]</span>
+<span class="s1">}</span>
+<span class="s1">&#39;&#39;&#39;</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geojson</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are a few more options for quickly bringing spatial data into geodataframes, for sure.</p>
+</div>
+</div>
+<div class="section" id="spatial-join-the-core-capability-of-gis">
+<h1>4. Spatial join - the core capability of GIS<a class="headerlink" href="#spatial-join-the-core-capability-of-gis" title="Permalink to this headline">¶</a></h1>
+<p>(as opposed to computer mapping systems which are primarily concerned with making maps. Whereas GIS, in a narrow sense, is about integrating data based on location)</p>
+<p>It is like the regular attribute join - but relies on geometry fields. In terms of Geopandas, it gets  attributes from one geodataframe and adds them to another geodataframe   based on the spatial relationship between objects in the geometry columns of both. Since geometries can be represented using different types of objects (point, lines, polygons, their multipart versions - but also curves, etc.), in different coordinate systems, it becomes complicated. The meaning of spatial join also depends on the types of features being joined.</p>
+<p>Results of the join also depend on geometric acuracy and precision. Even if you try to join based on equal polygons (similar to simple equality in non-spatial join) the concept of “equal geometries” is not that simple (eg polygons may carve the same region of space, but have different shape points, or even rings may have different starting points…)</p>
+<p>Geopandas, for example, defines equal polygons if their boundary, exterior and interior coinside. But boundary points may be different - see below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<span class="n">poly1</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">([</span><span class="n">Polygon</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)])])</span>
+<span class="n">poly2</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">GeoSeries</span><span class="p">([</span><span class="n">Polygon</span><span class="p">([(</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)])])</span>
+<span class="n">poly1</span><span class="o">.</span><span class="n">geom_equals</span><span class="p">(</span><span class="n">poly2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    True
+dtype: bool
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>NAME          2747
+OWNERSHIP     2758
+GIS_ACRES     2758
+PARK_TYPE     2758
+SOURCE        2758
+SOURCE_DAT    2758
+SOURCE_NOT    2345
+LOCATION       586
+ALIAS_NAME    2747
+SOURCE_ID      370
+Shape_STAr    2758
+Shape_STLe    2758
+geometry      2758
+centroids     2758
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You need to have valid geometries to do spatial join.</span>
+<span class="c1"># https://stackoverflow.com/questions/56961270/geopandas-spatial-join-attributeerror-nonetype-object-has-no-attribute-bou</span>
+
+<span class="n">sd_parks2_clean</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sd_parks2</span><span class="o">.</span><span class="n">is_valid</span><span class="p">]</span>
+<span class="n">new_locations_clean</span> <span class="o">=</span> <span class="n">new_locations</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">new_locations</span><span class="o">.</span><span class="n">is_valid</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># suppose you are trying to find parks closest to the proposed locations. </span>
+<span class="c1"># let&#39;s use spatial join to do this. We can join based on proximity, </span>
+<span class="c1"># or topological predicates such as &quot;within&quot;. </span>
+<span class="c1"># Other predicates can be &quot;intersects&quot;, &quot;contains&quot;.</span>
+<span class="c1"># This set of predicates is rather limiting...</span>
+
+
+<span class="n">locations_with_parks</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">new_locations_clean</span><span class="p">,</span> <span class="n">sd_parks2_clean</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="s1">&#39;within&#39;</span><span class="p">)</span>
+
+<span class="c1"># actually, how do you find parks closest to a point??</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/kaushikramganapathy/opt/anaconda3/envs/dsc170textbook/lib/python3.9/site-packages/IPython/core/interactiveshell.py:3364: FutureWarning: The `op` parameter is deprecated and will be removed in a future release. Please use the `predicate` parameter instead.
+  if (await self.run_code(code, result,  async_=asy)):
+/var/folders/3c/s37h4q712hl9dyyqp9lxps8c0000gn/T/ipykernel_46401/1067370986.py:8: UserWarning: CRS mismatch between the CRS of left geometries and the CRS of right geometries.
+Use `to_crs()` to reproject one of the input geometries to match the CRS of the other.
+
+Left CRS: None
+Right CRS: EPSG:4326
+
+  locations_with_parks = geopandas.sjoin(new_locations_clean, sd_parks2_clean, how=&#39;inner&#39;, op=&#39;within&#39;)
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">3</span><span class="n">c</span><span class="o">/</span><span class="n">s37h4q712hl9dyyqp9lxps8c0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46401</span><span class="o">/</span><span class="mf">1067370986.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">locations_with_parks</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">sjoin</span><span class="p">(</span><span class="n">new_locations_clean</span><span class="p">,</span> <span class="n">sd_parks2_clean</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="s1">&#39;within&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="c1"># actually, how do you find parks closest to a point??</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/tools/sjoin.py</span> in <span class="ni">sjoin</span><span class="nt">(left_df, right_df, how, predicate, lsuffix, rsuffix, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">122</span>     <span class="n">_basic_checks</span><span class="p">(</span><span class="n">left_df</span><span class="p">,</span> <span class="n">right_df</span><span class="p">,</span> <span class="n">how</span><span class="p">,</span> <span class="n">lsuffix</span><span class="p">,</span> <span class="n">rsuffix</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span> 
+<span class="ne">--&gt; </span><span class="mi">124</span>     <span class="n">indices</span> <span class="o">=</span> <span class="n">_geom_predicate_query</span><span class="p">(</span><span class="n">left_df</span><span class="p">,</span> <span class="n">right_df</span><span class="p">,</span> <span class="n">predicate</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span> 
+<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="n">joined</span> <span class="o">=</span> <span class="n">_frame_join</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">left_df</span><span class="p">,</span> <span class="n">right_df</span><span class="p">,</span> <span class="n">how</span><span class="p">,</span> <span class="n">lsuffix</span><span class="p">,</span> <span class="n">rsuffix</span><span class="p">)</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/tools/sjoin.py</span> in <span class="ni">_geom_predicate_query</span><span class="nt">(left_df, right_df, predicate)</span>
+<span class="g g-Whitespace">    </span><span class="mi">209</span>             <span class="c1"># see discussion at https://github.com/geopandas/geopandas/pull/1421</span>
+<span class="g g-Whitespace">    </span><span class="mi">210</span>             <span class="n">predicate</span> <span class="o">=</span> <span class="s2">&quot;contains&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">211</span>             <span class="n">sindex</span> <span class="o">=</span> <span class="n">left_df</span><span class="o">.</span><span class="n">sindex</span>
+<span class="g g-Whitespace">    </span><span class="mi">212</span>             <span class="n">input_geoms</span> <span class="o">=</span> <span class="n">right_df</span><span class="o">.</span><span class="n">geometry</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span>         <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/base.py</span> in <span class="ni">sindex</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2635</span>                <span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+<span class="g g-Whitespace">   </span><span class="mi">2636</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">-&gt; </span><span class="mi">2637</span><span class="s2">         return self.geometry.values.sindex</span>
+<span class="g g-Whitespace">   </span><span class="mi">2638</span><span class="s2"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">2639</span><span class="s2">     @property</span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/array.py</span> in <span class="ni">sindex</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">290</span><span class="s2">     def sindex(self):</span>
+<span class="g g-Whitespace">    </span><span class="mi">291</span><span class="s2">         if self._sindex is None:</span>
+<span class="ne">--&gt; </span><span class="mi">292</span><span class="s2">             self._sindex = _get_sindex_class()(self.data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">293</span><span class="s2">         return self._sindex</span>
+<span class="g g-Whitespace">    </span><span class="mi">294</span><span class="s2"> </span>
+
+<span class="nn">~/.local/lib/python3.9/site-packages/geopandas/sindex.py</span> in <span class="ni">_get_sindex_class</span><span class="nt">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span><span class="s2">     if compat.HAS_RTREE:</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span><span class="s2">         return RTreeIndex</span>
+<span class="ne">---&gt; </span><span class="mi">21</span><span class="s2">     raise ImportError(</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span><span class="s2">         &quot;Spatial indexes require either `rtree` or `pygeos`. &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span><span class="s2">         &quot;See installation instructions at https://geopandas.org/install.html&quot;</span>
+
+<span class="ne">ImportError</span>: Spatial indexes require either `rtree` or `pygeos`. See installation instructions at https://geopandas.org/install.html
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">new_locations_clean</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_locations_clean</span><span class="o">.</span><span class="n">crs</span> <span class="o">=</span> <span class="s1">&#39;epsg:4326&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># let&#39;s look at the data in the geodataframe. </span>
+<span class="c1"># Notice several new fields, which came from sd_parks2</span>
+
+<span class="n">locations_with_parks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">folders</span><span class="o">/</span><span class="mi">3</span><span class="n">c</span><span class="o">/</span><span class="n">s37h4q712hl9dyyqp9lxps8c0000gn</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="n">ipykernel_46401</span><span class="o">/</span><span class="mf">252495521.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># Notice several new fields, which came from sd_parks2</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">locations_with_parks</span>
+
+<span class="ne">NameError</span>: name &#39;locations_with_parks&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># why are there two parks joined to one of the locations?? Let&#39;s explore those. </span>
+
+<span class="n">sdp</span> <span class="o">=</span> <span class="n">sd_parks2</span><span class="p">[</span><span class="n">sd_parks2</span><span class="p">[</span><span class="s1">&#39;NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">({</span><span class="s1">&#39;Torrey Pines SNR&#39;</span><span class="p">,</span><span class="s1">&#39;Ellen Browning Scripps NP&#39;</span><span class="p">})]</span>
+<span class="n">sdp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;NAME&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="_images/Geopandas-2_64_1.png" src="_images/Geopandas-2_64_1.png" />
+</div>
+</div>
+<p>Apparently, as we saw earlier with two other parks, park geometries are not necessarily tied to each other. We’ll explore this in the next topic.</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="Geopandas-1.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Intro to Geopandas-I</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Authors of the Book<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
